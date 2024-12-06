@@ -1,0 +1,133 @@
+# enumfiles CNA script
+
+beacon_command_register(
+"enumfiles",
+"Enumerate files and folders locally including LOLBins.",
+"Usage: enumfiles <type>
+	Supported types: 
+		all, lolbins, remoting, dotnet, browser-installs, browser-userdata, python, powershell-hist, webservers, unattended
+Examples:
+	enumfiles show - Dont run checks, just show all enumeration checks and files/folders supported.
+	enumfiles all - Run all enumeration checks.
+	enumriles lolbins - Run only lolbins checks.
+");
+
+
+alias enumfiles {
+	local('$barch $handle $data $args $enum');
+
+	# Expecting 1 arg
+	if(size(@_) != 2)
+	{
+		berror($1, "Incorrect usage!");
+		berror($1, beacon_command_detail("enumfiles"));
+		return;
+	}
+
+	blog($1, "enumfiles BOF (@bsummerz)");
+
+	# Get input enum type
+	$enum = $2;
+
+	if($enum eq "show")
+	{
+		blog($1, "Showing supported enumeration modules");
+
+		blog($1, "\nlolbins:");
+		blog($1, "System32 Folder: %WINDIR%\\System32");
+		blog($1, "SysWOW64 Folder: %WINDIR%\\SysWOW64"); 
+		blog($1, "DotNet Folder: C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319");
+		blog($1, "DotNet Folder (x86): C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319"); 
+		blog($1, "Teams Folder: %LOCALAPPDATA%\\Microsoft\\Team"); 
+		blog($1, "OneDrive Folder: %LOCALAPPDATA%\\Microsoft\\OneDrive");
+		blog($1, "VS Diagnostics EXE: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Team Tools\\DiagnosticsHub\\Collector\\VSDiagnostics.exe"); 
+		blog($1, "Remote Debugger EXE: C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x64\\remote.exe"); 
+		blog($1, "Remote Debugger (x86) EXE: C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x86\\remote.exe"); 
+		blog($1, "Protocol Handler EXE: C:\\Program Files\\Microsoft Office\\Office15\\ProtocolHandler.exe");
+		blog($1, "Protocol Handler EXE: C:\\Program Files\\Microsoft Office\\Office16\\ProtocolHandler.exe");
+		blog($1, "Bash EXE: C:\\Windows\\System32\\bash.exe");
+		blog($1, "Bash EXE (x86): C:\\Windows\\SysWOW64\\bash.exe");
+
+		blog($1, "\nremoting:");
+		blog($1, "SSH: C:\\windows\\system32\\OpenSSH\\ssh.exe");
+		blog($1, "Putty: C:\\Program Files\\PuTTY");
+		blog($1, "Putty (x86): C:\\Program Files (x86)\\PuTTY");
+		blog($1, "TeamViewer: C:\\Program Files\\TeamViewer");
+		blog($1, "TeamViewer (x86): C:\\Program Files (x86)\\TeamViewer");
+		blog($1, "AnyDesk: C:\\Program Files (x86)\\AnyDesk");
+
+		blog($1, "\nunattended:");
+		blog($1, "Unattended Install File: C:\\Windows\\Panther\\Unattend.xml");
+		blog($1, "Unattended Install File: C:\\Windows\\Panther\\Unattended.xml");
+		blog($1, "Unattended Install File: C:\\Windows\\Panther\\Unattend\\Unattended.xml");
+
+		blog($1, "\nbrowser-installs:");
+		blog($1, "Chrome - Installation (x86): C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
+		blog($1, "Chrome - Installation: C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
+		blog($1, "Chrome - Installation (Win7): C:\\Program Files (x86)\\Google\\Application\\chrome.exe"); 
+		blog($1, "Edge - Installation: C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+		blog($1, "IE - Installation: C:\\Program Files\\Internet Explorer\\iexplore.exe");
+		blog($1, "FireFox - Installation (x86): C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
+		blog($1, "FireFox - Installation: C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+
+		blog($1, "\nbrowser-userdata:");
+		blog($1, "Chrome - User Data Folder: %LOCALAPPDATA%\\Google\\Chrome\\User Data");
+		blog($1, "Edge - User Data Folder: %LOCALAPPDATA%\\Microsoft\\Edge\\User Data");
+		blog($1, "FireFox - Profiles Folder: %APPDATA%\\Mozilla\\Firefox\\Profiles");
+
+		blog($1, "\nwebservers:");
+		blog($1, "IIS: C:\\inetpub");
+		blog($1, "Apache - Access Log: C:\\apache\\logs\\access.log");
+		blog($1, "Apache - Error Log: C:\\apache\\logs\\error.log");
+		blog($1, "Apache - PHP config: C:\\apache\\php\\php.ini");
+		blog($1, "Apache - PHP config: C:\\Program Files\\Apache Group\\Apache");
+		blog($1, "PHP - Config: C:\\php\\php.ini");
+		blog($1, "PHP - Config: C:\\WINNT\\php.ini");
+		blog($1, "PHP - Config: C:\\WINDOWS\\php.ini");
+		blog($1, "PHP 4 - Config: C:\\php4\\php.ini");
+		blog($1, "PHP 5 - Config: C:\\php5\\php.ini");
+		blog($1, "XAMPP Folder: C:\\xampp");
+		blog($1, "XAMPP - Installation: C:\\Program Files\\xampp")
+
+		blog($1, "\npowershell-hist");
+		blog($1, "%APPDATA%\\Microsoft\\Windows\\PowerShell\\PSReadLine\\ConsoleHost_history.txt");
+
+		blog($1, "\npython:");
+		blog($1, "Python: %LOCALAPPDATA%\\Microsoft\\WindowsApps\\python.exe");
+		blog($1, "Python: %LOCALAPPDATA%\\Programs\\Python");
+		blog($1, "Python: C:\\Python")
+
+		return;
+	}else if( ($enum eq "all")||($enum eq "lolbins")||($enum eq "remoting")||($enum eq "dotnet")||($enum eq "browser-installs")||($enum eq "browser-userdata")||($enum eq "python")||($enum eq "powershell-hist")||($enum eq "webserveres")||($enum eq "unattended") ){
+
+		# Figure out the arch of this session
+		$barch  = barch($1);
+
+		# Read in the right BOF file
+		$handle = openf(script_resource(" $+ $barch $+ /Release/Compiled/enumfiles. $+ $barch $+ .o"));
+		$data = readb($handle, -1);
+		closef($handle);
+
+		if(strlen($data) == 0)
+	    {
+	    	# Exit
+	        berror($1, "Could not read BOF file");
+	        return;
+	    }
+
+		# Pack our arguments
+		$args = bof_pack($1, "z", $enum);
+
+		# Execute enumfiles BOF
+		beacon_inline_execute($1, $data, "go", $args);
+
+	}else if ( ($enum eq "help")||($enum eq "-h") ) {
+		berror($1, beacon_command_detail("enumfiles"));
+		return;
+	}
+	else {
+		berror($1, "Incorrect arguments!");
+		berror($1, beacon_command_detail("enumfiles"));
+		return;
+	}
+}
