@@ -1,0 +1,96 @@
+# HelpColor.cna
+#
+# Prints available beacon commands and colors each command based on its type
+#
+# Author: @jmoosdijk / Outflank
+# Updates from @ZephrFish / Lares and @discoverscripts
+#
+# 2021-08-19 : v1.0: public release
+#
+# Added BOF from https://github.com/anthemtotheego/InlineExecute-Assembly
+# Added BOFs from Situational Awareness & Hollow/Sec-inject
+
+# register command
+beacon_command_register("helpx", "Lists available commands and colors each command based on its type",
+	"lists available commands and colors each command based on its type.\n\n" .
+	"Usage: helpx\n");
+
+# command definition
+alias helpx {
+    # highlight the following commands
+    # CS built-in commands based on: https://www.cobaltstrike.com/help-opsec
+
+    @ApiOnly_builtin = @("!", "cd", "clipboard", "connect", "cp", "download", "drives", "exit", "getprivs", "getuid", "history", "inline-execute", "jobkill", "kill", "link", "ls", "make_token", "mkdir", "mv", "ps", "pwd", "rev2self", "rm", "rportfwd", "rportfwd_local", "setenv", "socks", "steal_token", "unlink", "upload");
+    @ApiOnly_custom = @("ps-find");
+    @Bof_bofnet = @("bofnet_boo", "bofnet_execute", "bofnet_executeassembly", "bofnet_init", "bofnet_job", "bofnet_jobs", "bofnet_jobkill", "bofnet_jobstatus", "bofnet_list", "bofnet_listassemblies", "bofnet_load", "bofnet_loadbig", "bofnet_shutdown");
+    @Bof_builtin = @("getsystem", "kerberos_ccache_use", "kerberos_ticket_purge", "kerberos_ticket_use", "reg", "timestomp");
+    @Bof_custom = @("exitthread", "hollow", "inlineExecute-Assembly", "nanodump", "Psw", "sec-inject", "sec-shinject", "shovelng", "unhook");
+    @Bof_trustedsec_CS-Remote-OPs-BOF = @("adcs_request", "addusertogroup", "chromeKey", "clipboardinject", "conhost", "createremotethread", "ctray", "dde", "enableuser", "get_priv", "kernelcallbacktable", "lastpass", "ntcreatethread", "ntqueueapcthread", "office_tokens", "procdump", "ProcessDestroy", "ProcessListHandles", "reg_delete", "reg_save", "reg_set", "sc_config", "sc_create", "sc_delete", "sc_description", "sc_start", "sc_stop", "schtaskscreate", "schtasksdelete", "schtasksrun", "schtasksstop", "setthreadcontext", "setuserpass", "shspawnas", "svcctrl", "tooltip", "unexpireuser", "uxsubclassinfo");    
+    @Bof_trustedsec_CS-Situational-Awareness-BOF = @("adcs_enum", "adcs_enum_com", "adcs_enum_com2", "adv_audit_policies", "arp", "cacls", "dir", "domainenum", "driversigs", "enum_filter_driver", "enumLocalSessions", "env", "findLoadedModule", "get_password_policy", "ipconfig", "ldapsearch", "listdns", "list_firewall_rules", "listmods", "listpipes", "locale", "netGroupList", "netGroupListMembers", "netLocalGroupList", "netLocalGroupListMembers", "netLocalGroupListMembers2", "netloggedon", "netloggedon2", "netsession", "netsession2", "netshares", "netsharesAdmin", "netstat", "nettime", "netuptime", "netuse_add", "netuse_delete", "netuse_list", "netuser", "netview", "notepad", "nslookup", "probe", "reg_query", "reg_query_recursive", "regsession", "resources", "routeprint", "sc_enum", "sc_qc", "sc_qdescription", "sc_qfailure", "sc_query", "sc_qtriggerinfo", "schtasksenum", "schtasksquery", "tasklist", "uptime", "userenum", "vssenum", "whoami", "windowlist", "wmi_query");    
+    @Bof_Outflank_credpack = @("credpack-dumpertng", "credpack-handledupminidump", "credpack-passwordspy", "credpack-processdupminidump");
+    @Bof_Outflank_C2-Tool-Collection = @("AddMachineAccount", "Askcreds", "CVE-2022-26923", "DelMachineAccount", "Domaininfo", "GetMachineAccountQuota", "Kerberoast", "KerbHash", "Lapsdump", "PetitPotam", "psc", "psw", "psx", "psxx", "Smbinfo", "SprayAD", "StartWebClient", "Winver");
+    @DllSpawn_custom = @("HiddenDesktop", "psh", "psk", "psm", "Recon-AD-AllLocalGroups", "Recon-AD-Computers", "Recon-AD-Domain", "Recon-AD-Groups", "Recon-AD-LocalGroups", "Recon-AD-SPNs", "Recon-AD-Users", "Spray-AD");
+    @ForkRun_builtin = @("chromedump", "covertvpn", "dcsync", "execute-assembly", "hashdump", "logonpasswords", "mimikatz", "net", "portscan", "powerpick", "pth", "ssh", "ssh-key");
+    @ForkRun_custom = @("sharpgen", "shovel");
+    @ForkRunOrTargetExplictProcess_builtin = @("browserpivot", "desktop", "keylogger", "printscreen", "psinject", "screenshot", "screenwatch");
+    @Housekeeping_builtin = @("argue", "blockdlls", "cancel", "checkin", "clear", "downloads", "file_browser", "help", "jobs", "mode dns", "mode dns6", "mode dns-txt", "note", "powershell-import", "ppid", "process_browser", "sleep", "socks stop", "spawnto", "windows_error_code");
+    @Housekeeping_custom = @("helpx");
+    @ProcessExecution_builtin = @("execute", "run", "runas", "runasadmin", "runu");
+    @ProcessOrServiceCreation_builtin = @("jump", "powershell", "pth", "remote-exec", "shell");
+    @ProcessRemoteInject_builtin = @("dllinject", "dllload", "inject", "shinject");
+    @ProcessRemoteInject_custom = @("dumpert");
+    @ProcessSpawnAndInject_builtin = @("elevate", "shspawn", "spawn", "spawnas", "spawnu", "spunnel", "spunnel_local" );  
+
+    # start printing to current beacon
+    blog($1, "Available beacon commands with command type highlighting\n");
+    blog($1, "\c3 GREEN: \tApiOnly, Housekeeping");
+    blog($1, "\c9 L-GREEN: \tBOF");
+    blog($1, "\c8 YELLOW: \tFork&Run, Fork&RunOrTargetExplictProcess, DllSpawn");
+    blog($1, "\c4 RED: \tProcessExecution, ProcessSpawnAndInject, ProcessRemoteInject, ProcessOrServiceCreation\n");
+    blog($1, "Command \t\t  Description");  
+    blog($1, "-------- \t\t  ------------");
+
+    # command sorting subroutine 
+    sub caseInsensitiveCompare
+    {
+        $a = lc($1);
+        $b = lc($2);
+        
+        return $a cmp $b;
+    }
+    
+    @commandArray = beacon_commands();
+    @sortedCommandArray = sort(&caseInsensitiveCompare, @commandArray);
+
+        # time to color commands based on their type
+        foreach $command (@sortedCommandArray) {
+            if(iff($command in @ApiOnly_builtin || $command in @ApiOnly_custom || $command in @Housekeeping_builtin || $command in @Housekeeping_custom,true,false))
+            {
+                blog($1, "\c3$[25]command" . beacon_command_describe($command) . "\o");     # set command color to GREEN
+            }
+            else if(iff($command in @Bof_builtin || $command in @Bof_custom || $command in @Bof_trustedsec_CS-Situational-Awareness-BOF || $command in @Bof_trustedsec_CS-Remote-OPs-BOF || $command in @Bof_Outflank_credpack || $command in @Bof_Outflank_C2-Tool-Collection || $command in @Bof_bofnet,true,false))
+            {
+                blog($1, "\c9$[25]command" . beacon_command_describe($command) . "\o");     # set command color to LIGHT GREEN
+            }
+            else if(iff($command in @ForkRun_builtin || $command in @ForkRun_custom || $command in @ForkRunOrTargetExplictProcess_builtin,true,false))
+            {
+                blog($1, "\c8$[25]command" . beacon_command_describe($command) . "\o");     # set command color to YELLOW
+            }
+            else if($command in @DllSpawn_custom)
+            {
+                blog($1, "\c8$[25]command" . beacon_command_describe($command) . "\o");     # set command color to YELLOW
+            }
+            else if(iff($command in @ProcessExecution_builtin || $command in @ProcessOrServiceCreation_builtin,true,false))
+            {
+                blog($1, "\c4$[25]command" . beacon_command_describe($command) . "\o");     # set command color to RED
+            }
+            else if(iff($command in @ProcessRemoteInject_builtin || $command in @ProcessRemoteInject_custom || $command in @ProcessSpawnAndInject_builtin,true,false))
+            {
+                blog($1, "\c4$[25]command" . beacon_command_describe($command) . "\o");     # set command color to RED
+            }
+            else 
+            {
+                blog($1, "$[25]command" . beacon_command_describe($command));               # set command color to DEFAULT COLOR/NOT DEFINED
+			}
+		}	
+}
