@@ -3,6 +3,7 @@
 # List of repositories to add as submodules
 repos=(
     "https://github.com/trustedsec/CS-Situational-Awareness-BOF"
+    "https://github.com/mlcsec/EDRenum-BOF"
     "https://github.com/rvrsh3ll/BOF_Collection"
     "https://github.com/boku7/whereami"
     "https://github.com/RiccardoAncarani/BOFs"
@@ -45,7 +46,7 @@ repos=(
 for repo in "${repos[@]}"; do
     name=$(basename "$repo" .git)
     echo "Adding $repo as a submodule..."
-    git submodule add "$repo" "submodules/$name"
+    git submodule add "$repo" "$name"
 done
 
 # Initialize and update all submodules
