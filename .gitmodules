@@ -97,3 +97,6 @@
 [submodule "Aggressors/submodules/HelpColor"]
 	path = Aggressors/submodules/HelpColor
 	url = https://github.com/outflanknl/HelpColor
+[submodule "BOFs/EDRenum-BOF"]
+	path = BOFs/EDRenum-BOF
+	url = https://github.com/mlcsec/EDRenum-BOF
