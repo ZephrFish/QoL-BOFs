@@ -1,3 +1,6 @@
+[submodule "BOFs/SQL-BOF"]
+	path = BOFs/SQL-BOF
+	url = https://github.com/CCob/SQL-BOF
 [submodule "BOFs/CS-Situational-Awareness-BOF"]
 	path = BOFs/CS-Situational-Awareness-BOF
 	url = https:/github.com/trustedsec/CS-Situational-Awareness-BOF
