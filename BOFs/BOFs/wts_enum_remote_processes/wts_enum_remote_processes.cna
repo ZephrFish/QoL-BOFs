@@ -1,0 +1,29 @@
+beacon_command_register(
+"wts_enum_remote_processes", 
+"Enumerate remote processes via WTS APIs", 
+"Synopsis: wts_enum_remote_processes <host>");
+
+
+alias wts_enum_remote_processes {
+	local('$handle $data $args');
+	
+	# figure out the arch of this session
+	$barch  = barch($1);
+	
+	# read in the right BOF file
+	$handle = openf(script_resource("wts_enum_remote_processes. $+ $barch $+ .o"));
+	$data = readb($handle, -1);
+	closef($handle);
+
+	
+	# pack our arguments
+	$args = bof_pack($1, "z", $2);
+	
+	btask($1, "wts_enum_remote_processes BOF (@dottor_morte)");
+	btask($1, "Enumerating: $+  $2");
+
+	# execute it.
+	beacon_inline_execute($1, $data, "go", $args);
+}
+
+
