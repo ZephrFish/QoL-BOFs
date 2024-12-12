@@ -103,3 +103,105 @@
 [submodule "BOFs/EDRenum-BOF"]
 	path = BOFs/EDRenum-BOF
 	url = https://github.com/mlcsec/EDRenum-BOF
+[submodule "BOFs/BOFs/SQL-BOF"]
+	path = BOFs/BOFs/SQL-BOF
+	url = https://github.com/CCob/SQL-BOF
+[submodule "BOFs/BOFs/CS-Situational-Awareness-BOF"]
+	path = BOFs/BOFs/CS-Situational-Awareness-BOF
+	url = https://github.com/trustedsec/CS-Situational-Awareness-BOF
+[submodule "BOFs/BOFs/BOF_Collection"]
+	path = BOFs/BOFs/BOF_Collection
+	url = https://github.com/rvrsh3ll/BOF_Collection
+[submodule "BOFs/BOFs/whereami"]
+	path = BOFs/BOFs/whereami
+	url = https://github.com/boku7/whereami
+[submodule "BOFs/BOFs/BOFs"]
+	path = BOFs/BOFs/BOFs
+	url = https://github.com/RiccardoAncarani/BOFs
+[submodule "BOFs/BOFs/C2-Tool-Collection"]
+	path = BOFs/BOFs/C2-Tool-Collection
+	url = https://github.com/outflanknl/C2-Tool-Collection
+[submodule "BOFs/BOFs/cobaltstrike-cat-bof"]
+	path = BOFs/BOFs/cobaltstrike-cat-bof
+	url = https://github.com/tvgdb/cobaltstrike-cat-bof
+[submodule "BOFs/BOFs/tgtdelegation"]
+	path = BOFs/BOFs/tgtdelegation
+	url = https://github.com/sliverarmory/tgtdelegation
+[submodule "BOFs/BOFs/PrivKit"]
+	path = BOFs/BOFs/PrivKit
+	url = https://github.com/mertdas/PrivKit
+[submodule "BOFs/BOFs/BOF-enumfiles"]
+	path = BOFs/BOFs/BOF-enumfiles
+	url = https://github.com/wsummerhill/BOF-enumfiles
+[submodule "BOFs/BOFs/xPipe"]
+	path = BOFs/BOFs/xPipe
+	url = https://github.com/boku7/xPipe
+[submodule "BOFs/BOFs/InlineExecute-Assembly"]
+	path = BOFs/BOFs/InlineExecute-Assembly
+	url = https://github.com/anthemtotheego/InlineExecute-Assembly
+[submodule "BOFs/BOFs/inject-assembly"]
+	path = BOFs/BOFs/inject-assembly
+	url = https://github.com/kyleavery/inject-assembly
+[submodule "BOFs/BOFs/BOF.NET"]
+	path = BOFs/BOFs/BOF.NET
+	url = https://github.com/CCob/BOF.NET
+[submodule "BOFs/BOFs/ThreadlessInject-BOF"]
+	path = BOFs/BOFs/ThreadlessInject-BOF
+	url = https://github.com/iilegacyyii/ThreadlessInject-BOF
+[submodule "BOFs/BOFs/BOF-RegSave"]
+	path = BOFs/BOFs/BOF-RegSave
+	url = https://github.com/EncodeGroup/BOF-RegSave
+[submodule "BOFs/BOFs/unhook-bof"]
+	path = BOFs/BOFs/unhook-bof
+	url = https://github.com/rsmudge/unhook-bof
+[submodule "BOFs/BOFs/WdToggle"]
+	path = BOFs/BOFs/WdToggle
+	url = https://github.com/outflanknl/WdToggle
+[submodule "BOFs/BOFs/CS-Remote-OPs-BOF"]
+	path = BOFs/BOFs/CS-Remote-OPs-BOF
+	url = https://github.com/trustedsec/CS-Remote-OPs-BOF
+[submodule "BOFs/BOFs/injectAmsiBypass"]
+	path = BOFs/BOFs/injectAmsiBypass
+	url = https://github.com/boku7/injectAmsiBypass
+[submodule "BOFs/BOFs/injectEtwBypass"]
+	path = BOFs/BOFs/injectEtwBypass
+	url = https://github.com/boku7/injectEtwBypass
+[submodule "BOFs/BOFs/BOF-patchit"]
+	path = BOFs/BOFs/BOF-patchit
+	url = https://github.com/ScriptIdiot/BOF-patchit
+[submodule "BOFs/BOFs/BofRoast"]
+	path = BOFs/BOFs/BofRoast
+	url = https://github.com/cube0x0/BofRoast
+[submodule "BOFs/BOFs/Koh"]
+	path = BOFs/BOFs/Koh
+	url = https://github.com/GhostPack/Koh
+[submodule "BOFs/BOFs/Kerbeus-BOF"]
+	path = BOFs/BOFs/Kerbeus-BOF
+	url = https://github.com/RalfHacker/Kerbeus-BOF
+[submodule "BOFs/BOFs/ScreenshotBOF"]
+	path = BOFs/BOFs/ScreenshotBOF
+	url = https://github.com/CodeXTF2/ScreenshotBOF
+[submodule "BOFs/BOFs/nanorobeus"]
+	path = BOFs/BOFs/nanorobeus
+	url = https://github.com/wavvs/nanorobeus
+[submodule "BOFs/BOFs/Defender-Exclusions-Creator-BOF"]
+	path = BOFs/BOFs/Defender-Exclusions-Creator-BOF
+	url = https://github.com/EspressoCake/Defender-Exclusions-Creator-BOF
+[submodule "BOFs/BOFs/ChromeKatz"]
+	path = BOFs/BOFs/ChromeKatz
+	url = https://github.com/Meckazin/ChromeKatz
+[submodule "BOFs/BOFs/bof_template"]
+	path = BOFs/BOFs/bof_template
+	url = https://github.com/Cobalt-Strike/bof_template
+[submodule "BOFs/BOFs/bofhound"]
+	path = BOFs/BOFs/bofhound
+	url = https://github.com/fortalice/bofhound
+[submodule "BOFs/BOFs/HiddenDesktop"]
+	path = BOFs/BOFs/HiddenDesktop
+	url = https://github.com/WKL-Sec/HiddenDesktop
+[submodule "BOFs/Aggressors/submodules/HelpColor"]
+	path = BOFs/Aggressors/submodules/HelpColor
+	url = https://github.com/outflanknl/HelpColor
+[submodule "BOFs/BOFs/EDRenum-BOF"]
+	path = BOFs/BOFs/EDRenum-BOF
+	url = https://github.com/mlcsec/EDRenum-BOF
