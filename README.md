@@ -20,6 +20,11 @@ To ensure you clone the repository and its submodules correctly, use the followi
 git clone --recurse-submodules https://github.com/ZephrFish/QoL-BOFs
 ```
 
+If you want Sync Submodules in Future to update the contents post clone, you can run:
+```
+git submodule update --remote --merge
+```
+
 ## Contents
 Sources curated from Will Summerhill's RT Cheatsheets - https://github.com/wsummerhill/C2_RedTeam_CheatSheets
 - [**SQL BOF**](https://github.com/CCob/SQL-BOF)
