@@ -22,6 +22,7 @@ git clone --recurse-submodules https://github.com/ZephrFish/QoL-BOFs
 
 ## Contents
 Sources curated from Will Summerhill's RT Cheatsheets - https://github.com/wsummerhill/C2_RedTeam_CheatSheets
+- [**SQL BOF**](https://github.com/CCob/SQL-BOF)
 - [**TrustedSec Situational Awareness BOF**](https://github.com/trustedsec/CS-Situational-Awareness-BOF)
 - [**BOF Collection**](https://github.com/rvrsh3ll/BOF_Collection)
 - [**whereami**](https://github.com/boku7/whereami)
@@ -59,6 +60,9 @@ Sources curated from Will Summerhill's RT Cheatsheets - https://github.com/wsumm
 - [**ChromeKatz**](https://github.com/Meckazin/ChromeKatz)
 - [**BOF Template**](https://github.com/Cobalt-Strike/bof_template)
 - [**BOF Hound**](https://github.com/fortalice/bofhound)
+    - An offline BloodHound ingestor and LDAP parser to be used with TrustedSec's ["ldapsearch"](https://github.com/trustedsec/CS-Situational-Awareness-BOF).
+- [**Hidden Desktop BOF**](https://github.com/WKL-Sec/HiddenDesktop)
+
     - An offline BloodHound ingestor and LDAP parser to be used with TrustedSec's ["ldapsearch"](https://github.com/trustedsec/CS-Situational-Awareness-BOF).
 - [**Hidden Desktop BOF**](https://github.com/WKL-Sec/HiddenDesktop)
 - [**EDREnum**](https://github.com/mlcsec/EDRenum-BOF)
