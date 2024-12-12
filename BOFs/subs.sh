@@ -2,6 +2,7 @@
 
 # List of repositories to add as submodules
 repos=(
+    "https://github.com/CCob/SQL-BOF"
     "https://github.com/trustedsec/CS-Situational-Awareness-BOF"
     "https://github.com/mlcsec/EDRenum-BOF"
     "https://github.com/rvrsh3ll/BOF_Collection"
