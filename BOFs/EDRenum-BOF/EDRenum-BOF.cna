@@ -1,0 +1,12 @@
+alias EDRenum {
+	
+    $handle = openf(script_resource("EDRenum-BOF.o"));
+    $bof = readb($handle, -1);
+    closef($handle);
+
+    $args = bof_pack($1 , "i", $pid);
+
+    beacon_inline_execute($1, $bof, "go");
+}
+
+beacon_command_register("EDRenum", "EDR and AV enumeration", "Synopsis: Identify EDR processes, directories, and services");
