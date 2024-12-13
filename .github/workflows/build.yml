@@ -11,15 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout repository with submodules
       uses: actions/checkout@v3
       with:
-        submodules: recursive  
+        submodules: recursive  # Ensures submodules are cloned
 
     - name: Set up MinGW compiler
       run: |
         sudo apt-get update
         sudo apt-get install -y gcc-mingw-w64-x86-64
+
+    - name: Debug file structure
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Repository structure:"
+        find . -type f | head -n 100  # Show the first 100 files for debugging
+        echo "Looking for bofdefs.h:"
+        find . -name "bofdefs.h" || echo "bofdefs.h not found"
 
     - name: Run build script
       run: |
