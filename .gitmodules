@@ -1,3 +1,6 @@
+[submodule "InjectionPatches"]
+	path = InjectionPatches
+	url = https://github.com/ajpc500/BOFs
 [submodule "SQL-BOF"]
 	path = SQL-BOF
 	url = https://github.com/CCob/SQL-BOF
