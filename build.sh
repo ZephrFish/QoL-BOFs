@@ -10,7 +10,18 @@ mkdir -p "$DIST_DIR"
 build_with_makefile() {
     local dir="$1"
     echo "Found Makefile in $dir. Running make..."
-    make -C "$dir"
+    
+    # Find the include path for bofdefs.h relevant to this Makefile
+    INCLUDE_PATH=$(find "$dir" -name "bofdefs.h" -exec dirname {} \; | head -n 1)
+    
+    if [ -z "$INCLUDE_PATH" ]; then
+        echo "Error: 'bofdefs.h' not found for Makefile in $dir. Skipping."
+        return
+    fi
+    
+    # Append the include path dynamically if needed
+    make -C "$dir" CFLAGS+="-I$INCLUDE_PATH"
+
     # Copy any generated `.o` files to the dist directory
     find "$dir" -name "*.o" -type f -exec cp {} "$DIST_DIR" \;
 }
