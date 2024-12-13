@@ -1,0 +1,33 @@
+name: Build and Compile
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive  
+
+    - name: Set up MinGW compiler
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-mingw-w64-x86-64
+
+    - name: Run build script
+      run: |
+        chmod +x build.sh
+        ./build.sh
+
+    - name: Upload dist folder as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: compiled-objects
+        path: dist/
