@@ -307,3 +307,6 @@
 [submodule "BOFs/EDRenum-BOF"]
 	path = BOFs/EDRenum-BOF
 	url = https://github.com/mlcsec/EDRenum-BOF
+[submodule "BOFs/OperatorsKit"]
+	path = BOFs/OperatorsKit
+	url = https://github.com/REDMED-X/OperatorsKit
