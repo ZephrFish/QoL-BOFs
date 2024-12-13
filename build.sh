@@ -30,6 +30,16 @@ find . -name "*.c" -type f ! -path "*/dist/*" | while read -r file; do
 
     # Compile the .c file to .o file
     base=$(basename "$file" .c)
-    x86_64-w64-mingw32-gcc -c "$file" -o "$DIST_DIR/${base}.o"
+
+    # Find include path for bofdefs.h
+    INCLUDE_PATH=$(find . -name "bofdefs.h" -exec dirname {} \; | head -n 1)
+
+    if [ -z "$INCLUDE_PATH" ]; then
+        echo "Error: 'bofdefs.h' not found. Skipping $file."
+        continue
+    fi
+
+    # Compile the file
+    x86_64-w64-mingw32-gcc -o "$DIST_DIR/${base}.o" -I "$INCLUDE_PATH" -Os -c "$file" -DBOF
     echo "Compiled $file to $DIST_DIR/${base}.o"
 done
