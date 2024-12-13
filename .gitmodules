@@ -1,6 +1,9 @@
 [submodule "InjectionPatches"]
 	path = InjectionPatches
 	url = https://github.com/ajpc500/BOFs
+[submodule "OperatorsKit"]
+	path = OperatorsKit
+	url = https://github.com/REDMED-X/OperatorsKit
 [submodule "SQL-BOF"]
 	path = SQL-BOF
 	url = https://github.com/CCob/SQL-BOF
